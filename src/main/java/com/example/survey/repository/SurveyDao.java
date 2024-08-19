@@ -28,13 +28,13 @@ public interface SurveyDao extends JpaRepository<Survey, Integer> {
 	@Query(value = "select * from survey.survey where name like %?1% and start_date>=?2 and end_date<=?3 and author=?4 order by no DESC", nativeQuery = true)
 	public List<Survey> backSearch(String surveyName, LocalDate startDate, LocalDate endDate, String author);
 
-	// §Y±Nµ²§ô : µ²§ô®É¶¡ > now¡A¬D¿ï­È³Ì¤pªº¥|­Ó
+	// å³å°‡çµæŸ : çµæŸæ™‚é–“ > nowï¼ŒæŒ‘é¸å€¼æœ€å°çš„å››å€‹
 	@Query(value="select * from survey.survey where end_date >= current_date() and published=true order by end_date ASC limit 5", nativeQuery = true)
 	public List<Survey> selectComingEnd();
-	// ³Ìªñ¶}©l : ¶}©l®É¶¡ < now¡A¬D¿ï­È³Ì¤jªº¥|­Ó
+	// æœ€è¿‘é–‹å§‹ : é–‹å§‹æ™‚é–“ < nowï¼ŒæŒ‘é¸å€¼æœ€å¤§çš„å››å€‹
 	@Query(value="select * from survey.survey where start_date <= current_date() and published=true order by start_date DESC limit 5", nativeQuery = true)
 	public List<Survey> selectRecentlyStart();
-	// §Y±N¶}©l : ¶}©l®É¶¡ > now¡A¬D¿ï­È³Ì¤pªº¥|­Ó
+	// å³å°‡é–‹å§‹ : é–‹å§‹æ™‚é–“ > nowï¼ŒæŒ‘é¸å€¼æœ€å°çš„å››å€‹
 	@Query(value="select * from survey.survey where start_date > current_date() and published=true order by start_date ASC limit 5", nativeQuery = true)
 	public List<Survey> selectComingStart();
 
